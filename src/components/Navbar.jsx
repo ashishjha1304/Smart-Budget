@@ -4,9 +4,9 @@ export default function Navbar() {
   const { months, selectedMonth, setSelectedMonth } = useBudget();
 
   return (
-    <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-6 shadow-sm">
-      <h1 className="text-xl font-semibold text-brand">Smart Budget</h1>
-      <div className="flex items-center gap-4">
+    <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 md:px-6 shadow-sm">
+      <h1 className="text-lg md:text-xl font-semibold text-brand">Smart Budget</h1>
+      <div className="flex items-center gap-2 md:gap-4">
         <label htmlFor="month-select" className="sr-only">
           Select month
         </label>
@@ -14,7 +14,7 @@ export default function Navbar() {
           id="month-select"
           value={selectedMonth}
           onChange={(e) => setSelectedMonth(e.target.value)}
-          className="rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-4 py-2 text-sm font-medium text-gray-700 dark:text-white shadow-sm focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand"
+          className="rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-2 md:px-4 py-2 text-sm font-medium text-gray-700 dark:text-white shadow-sm focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand"
         >
           {months.map((month) => (
             <option key={month} value={month}>

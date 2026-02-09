@@ -37,20 +37,20 @@ const icons = {
 
 export default function Left({ activeView = "dashboard", onNavigate }) {
   return (
-    <aside className="w-56 shrink-0 border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 py-4">
-      <nav className="px-3 space-y-1">
+    <aside className="fixed bottom-0 left-0 z-50 w-full border-t border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md md:relative md:w-56 md:border-t-0 md:border-r md:bg-white md:dark:bg-gray-800 py-2 md:py-4">
+      <nav className="flex md:block justify-around px-2 md:px-3 gap-1 md:space-y-1">
         {items.map((item) => (
           <button
             key={item.id}
             type="button"
             onClick={() => onNavigate(item.id)}
-            className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors ${activeView === item.id
-                ? "bg-brand-light dark:bg-brand-dark/20 text-brand"
-                : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white"
+            className={`flex flex-col md:flex-row items-center gap-1 md:gap-3 rounded-xl md:rounded-lg px-2 md:px-3 py-2 md:py-2.5 text-center md:text-left text-[10px] md:text-sm font-medium transition-all ${activeView === item.id
+              ? "bg-brand-light dark:bg-brand-dark/20 text-brand"
+              : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white"
               }`}
           >
-            {icons[item.icon]}
-            {item.label}
+            <div className="shrink-0">{icons[item.icon]}</div>
+            <span className="truncate">{item.label}</span>
           </button>
         ))}
       </nav>

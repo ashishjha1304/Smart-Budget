@@ -29,12 +29,6 @@ export default function Dashboard() {
   const isNearLimit = percentUsed >= 80 && percentUsed < 100;
   const isUnderBudget = percentUsed < 50;
 
-  // Recent 5 expenses (most recent first)
-  const recentExpenses = expensesForSelectedMonth
-    .slice()
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .slice(0, 5);
-
   const handleDelete = (id) => {
     deleteExpense(selectedMonth, id);
   };

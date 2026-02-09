@@ -43,8 +43,8 @@ function Details({ expenses = [], onDelete, categories = [] }) {
         </div>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[600px]">
+      <div className="hidden md:block overflow-x-auto">
+        <table className="w-full">
           <thead>
             <tr className="border-b border-gray-200 dark:border-gray-700 bg-gray-50/80 dark:bg-gray-900/50 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
               <th className="px-4 py-3">Date</th>
@@ -67,18 +67,18 @@ function Details({ expenses = [], onDelete, categories = [] }) {
                   key={e.id ?? `${e.date}-${e.amount}`}
                   className="border-b border-gray-100 dark:border-gray-700/50 hover:bg-gray-50/50 dark:hover:bg-gray-700/50 transition-colors"
                 >
-                  <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">
+                  <td className="px-4 py-3 font-medium text-gray-900 dark:text-white text-sm">
                     {e.date}
                   </td>
-                  <td className="px-4 py-3">
+                  <td className="px-4 py-3 text-sm">
                     <span className="inline-flex rounded-full bg-gray-100 dark:bg-gray-700 px-3 py-1 text-xs font-medium text-gray-800 dark:text-gray-200">
                       {e.category}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-gray-700 dark:text-gray-300">
+                  <td className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
                     {e.note || "—"}
                   </td>
-                  <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">
+                  <td className="px-4 py-3 font-medium text-gray-900 dark:text-white text-sm">
                     ₹{Number(e.amount).toFixed(2)}
                   </td>
                   <td className="px-4 py-3">
@@ -110,6 +110,48 @@ function Details({ expenses = [], onDelete, categories = [] }) {
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile View - Card Layout */}
+      <div className="md:hidden divide-y divide-gray-100 dark:divide-gray-700">
+        {filtered.length === 0 ? (
+          <div className="px-4 py-12 text-center text-sm text-gray-500 dark:text-gray-400">
+            No expenses found
+          </div>
+        ) : (
+          filtered.map((e) => (
+            <div key={e.id ?? `${e.date}-${e.amount}`} className="p-4 space-y-3">
+              <div className="flex justify-between items-start">
+                <div className="space-y-1">
+                  <span className="inline-flex rounded-full bg-gray-100 dark:bg-gray-700 px-2 py-0.5 text-[10px] font-medium text-gray-800 dark:text-gray-200">
+                    {e.category}
+                  </span>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{e.date}</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="font-bold text-gray-900 dark:text-white">
+                    ₹{Number(e.amount).toFixed(2)}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => onDelete(e.id ?? `${e.date}-${e.amount}`)}
+                    className="p-1.5 text-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg"
+                    aria-label="Delete expense"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              {e.note && (
+                <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 italic">
+                  "{e.note}"
+                </p>
+              )}
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
