@@ -144,8 +144,18 @@ export function BudgetProvider({ children }) {
   }, []);
 
   const expensesForSelectedMonth = useMemo(() => {
-    return state.expensesByMonth[state.selectedMonth] ?? [];
-  }, [state.expensesByMonth, state.selectedMonth]);
+    const monthExpenses = state.expensesByMonth[state.selectedMonth] ?? [];
+    const monthIndex = MONTHS.indexOf(state.selectedMonth);
+
+    // Filter expenses by both year and month from their date field
+    return monthExpenses.filter((expense) => {
+      const expenseDate = new Date(expense.date);
+      return (
+        expenseDate.getFullYear() === state.selectedYear &&
+        expenseDate.getMonth() === monthIndex
+      );
+    });
+  }, [state.expensesByMonth, state.selectedMonth, state.selectedYear]);
 
   const budgetForSelectedMonth = useMemo(() => {
     const val = state.budgetsByMonth[state.selectedMonth];
